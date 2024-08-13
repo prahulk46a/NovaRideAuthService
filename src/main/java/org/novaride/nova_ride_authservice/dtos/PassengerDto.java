@@ -1,6 +1,7 @@
 package org.novaride.nova_ride_authservice.dtos;
 
 import lombok.*;
+import org.novaride.nova_ride_authservice.entities.Passenger;
 
 import java.util.Date;
 
@@ -21,5 +22,17 @@ public class PassengerDto {
     private String phoneNumber;
 
     private Date createdAt;
+
+    //Act as a adapter layer
+    public static PassengerDto from(Passenger p) {
+        return PassengerDto.builder()
+                .id(p.getId().toString())
+                .createdAt(p.getCreatedAt())
+                .email(p.getEmail())
+                .password(p.getPassword())
+                .phoneNumber(p.getPhoneNumber())
+                .name(p.getName())
+                .build();
+    }
 
 }
