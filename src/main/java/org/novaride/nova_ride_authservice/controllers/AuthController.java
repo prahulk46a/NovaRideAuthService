@@ -19,6 +19,7 @@ public class AuthController {
         PassengerDto response = authService.signupPassenger(passengerSignupRequestDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+    //We need to check whether password is correct or not and after that
     @GetMapping("/signin/passenger")
     public ResponseEntity<?> signIn() {
         return new ResponseEntity<>(10,HttpStatus.CREATED);

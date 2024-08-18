@@ -21,6 +21,7 @@ public class AuthService {
 
     }
 
+    //This is method to signup new passenger user.
     public PassengerDto signupPassenger(PassengerSignupRequestDto passengerSignupRequestDto) {
         Passenger passenger = Passenger.builder()
                 .email(passengerSignupRequestDto.getEmail())

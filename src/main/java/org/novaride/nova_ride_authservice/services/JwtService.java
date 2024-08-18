@@ -15,8 +15,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import static io.jsonwebtoken.Jwts.claims;
 
+//a client application must send a JSON Web Token (JWT) in the authorization header of the HTTP request to your backend API.
+// API Gateway validates the token on behalf of your API, so you don't have to add any code in your API to process the authentication.
+//JWT is then included in the Authorization header of every subsequent HTTP request made by the client to the server.
 @Service
 public class JwtService implements CommandLineRunner {
     @Override
@@ -64,9 +66,10 @@ public class JwtService implements CommandLineRunner {
         return Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
     }
 
-    //This generic method is used to extract particular field of return type T inside the json
+    //This generic method is used to extract particular field/claims of return type T inside the json
+    //claim is a specific piece of information contained within the payload
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllPayloads(token);
+        final Claims claims = extractAllPayloads(token);//
         return claimsResolver.apply(claims);
     }
 
@@ -90,13 +93,11 @@ public class JwtService implements CommandLineRunner {
         //checks of extracted token and passed token are equal or not also checks expiry of token
         return (userEmailFetchedFromToken.equals(email)) && !isTokenExpired(token);
     }
-    //This will return object of
+    //This will return claims from payload as a object.
     private Object extractPayload(String token, String payloadKey) {
         Claims claim = extractAllPayloads(token);
         return (Object) claim.get(payloadKey);
     }
-
-
 
 
 }
