@@ -46,6 +46,9 @@ public class SecuritySecurity {
         return authenticationProvider;
     }
 
+    //It is a core interface that spring security uses for the authentication process.
+    /*It has only one method authenticate which when implemented in a class that implements
+    an Authentication Manager has all the logic for authenticating a user request.*/
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();

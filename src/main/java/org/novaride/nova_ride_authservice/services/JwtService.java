@@ -38,16 +38,20 @@ public class JwtService implements CommandLineRunner {
     private String SECRET;
 
 
-    private String createToken(Map<String, Object> payloads,String userName) {
+    public String createToken(Map<String, Object> payload, String email) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + Expiry*1000L);
-        SecretKey secretKey= Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
         return Jwts.builder()
-                        .claims(payloads)//payloads are called as claims
-                        .issuedAt(new Date(System.currentTimeMillis()))
-                        .expiration(expiryDate).subject(userName)
-                        .signWith(secretKey)
-                        .compact();//this compact method creates jwt token into string.
+                .claims(payload)
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(expiryDate)
+                .subject(email)
+                .signWith(getSignKey())
+                .compact();
+    }
+
+    public String createToken(String email) {
+        return createToken(new HashMap<>(), email);
     }
 
     private Claims extractAllPayloads(String token) {
