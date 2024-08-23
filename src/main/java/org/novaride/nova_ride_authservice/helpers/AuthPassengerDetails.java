@@ -1,6 +1,7 @@
 package org.novaride.nova_ride_authservice.helpers;
 
-import org.novaride.nova_ride_authservice.entities.Passenger;
+
+import org.novaride.modelentity.models.Passenger;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

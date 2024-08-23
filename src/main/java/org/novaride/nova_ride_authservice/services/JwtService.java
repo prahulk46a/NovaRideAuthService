@@ -73,7 +73,7 @@ public class JwtService implements CommandLineRunner {
     //This generic method is used to extract particular field/claims of return type T inside the json
     //claim is a specific piece of information contained within the payload
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllPayloads(token);//
+        final Claims claims = extractAllPayloads(token);
         return claimsResolver.apply(claims);
     }
 
@@ -83,22 +83,22 @@ public class JwtService implements CommandLineRunner {
         return extractClaim(token, Claims::getExpiration);
     }
     //this method extracts email from token
-    private String extractEmail(String token) {
+    public String extractEmail(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
     //This method checks if the token expiry was before the current time stamp or not ?
-    private Boolean isTokenExpired(String token) {
+    public Boolean isTokenExpired(String token) {
         return extracteExpiration(token).before(new Date());
     }
 
-    private Boolean validateToken(String token,String email) {
+    public Boolean validateToken(String token,String email) {
         final String userEmailFetchedFromToken = extractEmail(token);
         //checks of extracted token and passed token are equal or not also checks expiry of token
         return (userEmailFetchedFromToken.equals(email)) && !isTokenExpired(token);
     }
     //This will return claims from payload as a object.
-    private Object extractPayload(String token, String payloadKey) {
+    public Object extractPayload(String token, String payloadKey) {
         Claims claim = extractAllPayloads(token);
         return (Object) claim.get(payloadKey);
     }
