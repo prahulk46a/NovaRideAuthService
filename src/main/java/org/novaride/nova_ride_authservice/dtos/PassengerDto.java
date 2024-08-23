@@ -1,7 +1,8 @@
 package org.novaride.nova_ride_authservice.dtos;
 
 import lombok.*;
-import org.novaride.nova_ride_authservice.entities.Passenger;
+import org.novaride.modelentity.models.Passenger;
+
 
 import java.util.Date;
 

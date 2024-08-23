@@ -13,29 +13,34 @@ java {
     }
 }
 
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
 }
 
+
 repositories {
     mavenCentral()
+    mavenLocal()
+
 }
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.flywaydb:flyway-mysql:10.15.0'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    //groupid + artifactid(same as project name in properties file) + version =>from build .gradle of modelentity service
+    implementation('org.NovaRide:ModelEntity:0.0.2-SNAPSHOT')
+
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation 'io.jsonwebtoken:jjwt:0.12.5'
-
     implementation 'org.springframework.boot:spring-boot-starter-security'
 }
 

@@ -1,8 +1,9 @@
 package org.novaride.nova_ride_authservice.services;
 
+import org.novaride.modelentity.models.Passenger;
 import org.novaride.nova_ride_authservice.dtos.PassengerDto;
 import org.novaride.nova_ride_authservice.dtos.PassengerSignupRequestDto;
-import org.novaride.nova_ride_authservice.entities.Passenger;
+
 import org.novaride.nova_ride_authservice.repositories.PassengerRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

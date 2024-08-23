@@ -1,5 +1,7 @@
 package org.novaride.nova_ride_authservice.controllers;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.novaride.nova_ride_authservice.dtos.AuthRequestDto;
 import org.novaride.nova_ride_authservice.dtos.AuthResponseDto;
@@ -40,8 +42,10 @@ public class AuthController {
     //We need to check whether password is correct or not and after that
     @PostMapping("/signin/passenger")
     public ResponseEntity<?> signIn(@RequestBody AuthRequestDto authRequestDto, HttpServletResponse response) {
-
+    //UsernamePasswordAuthenticationToken=>able to fetch whether user sucessfull login or not
+                                                                            //this is unauthenticated user which is passed to authenticate using authentication manager-any successfully loggedIn one  are able to access this. But not special authorized one accessible
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequestDto.getEmail(), authRequestDto.getPassword()));
+        //after authenticating passenger if valid passenger exist then further cookie setting will be done.
         if(authentication.isAuthenticated()) {
             String jwtToken = jwtService.createToken(authRequestDto.getEmail());
 
@@ -57,6 +61,14 @@ public class AuthController {
         } else {
             throw new UsernameNotFoundException("User not found");
         }
+    }
+
+    @GetMapping("/validate")
+    public ResponseEntity<?> Validate(HttpServletRequest request) {
+        for(Cookie cookie: request.getCookies()) {
+            System.out.println(cookie.getName()+" "+ cookie.getValue());
+        }
+        return new ResponseEntity<>("Success validate api", HttpStatus.OK);
     }
 
 
